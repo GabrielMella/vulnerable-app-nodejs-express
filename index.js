@@ -30,7 +30,7 @@ var main = async () => {
   var app = express();
 
   app.get('/hello', function (req, res) {
-    res.send(`Hello, ${req.query.name}`)
+    res.type('text').send(`Hello, ${req.query.name}`)
   })
 
   app.set("view engine", "pug");
