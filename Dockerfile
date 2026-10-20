@@ -1,10 +1,12 @@
-FROM node:16
-
-COPY . /app/
+FROM node:20-alpine
 
 WORKDIR /app
 
-RUN npm i --package-lock
+COPY package*.json ./
+
+RUN npm ci --omit=dev
+
+COPY index.js ./
 
 EXPOSE 8080
 
