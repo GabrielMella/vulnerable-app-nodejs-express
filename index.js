@@ -4,8 +4,8 @@ var express = require("express");
 var port = 8080;
 
 var client = new Client({
-  user: "postgres",
-  password: "mysecretpassword",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   host: "localhost",
   port: 5432,
   database: "postgres",
