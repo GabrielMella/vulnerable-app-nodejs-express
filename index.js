@@ -1,19 +1,22 @@
-var { Client } = require('pg')
+var { Pool } = require('pg')
 var express = require("express");
 
 var port = 8080;
 
-var client = new Client({
+var pool = new Pool({
   user: "postgres",
   password: "mysecretpassword",
   host: "localhost",
   port: 5432,
   database: "postgres",
 })
-client.connect()
+
+pool.on('error', function (err) {
+  console.error('Unexpected error on idle client', err)
+})
 
 var main = async () => {
-  await client.query(`
+  await pool.query(`
     create table if not exists users
     (
         id       serial constraint users_pk primary key,
@@ -41,7 +44,7 @@ var main = async () => {
 
   app.get('/user/:id', async function (req, res) {
     try {
-      var user = await client.query(`select *
+      var user = await pool.query(`select *
                                      from users
                                      where id = ${req.params.id}`)
       res.send(user.rows[0]);
