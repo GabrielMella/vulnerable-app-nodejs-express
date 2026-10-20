@@ -25,8 +25,6 @@ var main = async () => {
     create unique index if not exists users_id_uindex on users (id);
   `)
 
-  var unused = "unused variable";
-
   var app = express();
 
   app.get('/hello', function (req, res) {
