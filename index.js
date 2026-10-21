@@ -47,7 +47,7 @@ var main = async () => {
       res.send(user.rows[0]);
     } catch (e) {
       console.error(e.message)
-      res.send({ "error": e.message });
+      res.status(500).send({ "error": "Internal server error" });
     }
   })
 
